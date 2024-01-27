@@ -1,0 +1,68 @@
+.panel {
+    background: var(--chat-panel-background);
+    border-radius: 12px;
+    padding: 0 1em;
+    height: 55px;
+    margin: 0.5em 0 0;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        height: 100%;
+
+        .panel-item:not(:last-child) {
+            margin: 0 1em 0 0;
+        }
+    }
+
+    &__input {
+        width: 100%;
+        height: 100%;
+        outline: none;
+        position: relative;
+        color: var(--chat-text-color);
+        font-size: 13px;
+        background: transparent;
+        border: 0;
+        font-family: 'Lato', sans-serif;
+        resize: none;
+    }
+}
+
+.add-file-button {
+    height: 23px;
+    min-width: 23px;
+    width: 23px;
+    background: var(--chat-add-button-background);
+    border-radius: 50%;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        stroke: #fff;
+    }
+}
+
+.send-message-button {
+    background: grey;
+    height: 20px;
+    width: 30px;
+    border: 0;
+    padding: 5px;
+    outline: none;
+    cursor: pointer;
+    background: var(--chat-send-button-background);
+    height: 30px;
+    min-width: 30px;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+        transform: scale(0.97);
+    }
+}
