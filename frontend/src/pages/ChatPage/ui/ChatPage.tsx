@@ -1,38 +1,68 @@
 import { Message, Panel } from '@/shared';
 import styles from './ChatPage.module.scss';
+import { useState } from 'react';
+
+const AVATAR_URL = {
+    user: 'https://clck.ru/38M4NZ',
+    gigachat: 'https://clck.ru/38M4G6',
+};
+
+interface IHistory {
+    author: 'user' | 'gigachat';
+    message: string;
+}
 
 export const ChatPage = () => {
+    const [history, setHistory] = useState<IHistory[]>([]);
+
+    const getAnswerForGigaChat = async (message: string) => {
+        const response = await fetch('http://127.0.0.1:8000/new-msg', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ msg: message }),
+        });
+        const { msg } = await response.json();
+        setHistory((prevHistory) => {
+            return [
+                ...prevHistory,
+                {
+                    author: 'gigachat',
+                    message: msg,
+                },
+            ];
+        });
+    };
+
+    const onInpuntMessage = (msg: string) => {
+        setHistory((prevHistory) => {
+            return [
+                ...prevHistory,
+                {
+                    author: 'user',
+                    message: msg,
+                },
+            ];
+        });
+
+        getAnswerForGigaChat(msg);
+    };
+
     return (
         <div className={styles['chat-page']}>
             <div className='--dark-theme' id='chat'>
                 <div className='chat__conversation-board'>
-                    <Message
-                        avatar='https://randomuser.me/api/portraits/women/44.jpg'
-                        messages={[
-                            `Somewhere stored deep, deep in my memory
-                        banks is the phrase &quot;It really whips
-                        the llama's ass&quot;.`,
-                        ]}
-                    />
-                    <Message
-                        avatar='https://randomuser.me/api/portraits/men/32.jpg'
-                        messages={[
-                            `Think the guy that did the voice has a
-                        Twitter?`,
-                        ]}
-                    />
-                    <Message
-                        avatar='https://randomuser.me/api/portraits/women/44.jpg'
-                        messages={['WE MUST FIND HIM!!', 'Wait ...']}
-                    />
-                    <Message
-                        avatar='https://randomuser.me/api/portraits/men/9.jpg'
-                        messages={['Winamps still an essential.']}
-                        reversed
-                    />
+                    {history.map(({ author, message }, i) => (
+                        <Message
+                            avatar={AVATAR_URL[author]}
+                            messages={[message]}
+                            reversed={author == 'user'}
+                        />
+                    ))}
                 </div>
                 <div className='chat__conversation-panel'>
-                    <Panel />
+                    <Panel onInputMessageHandler={onInpuntMessage} />
                 </div>
             </div>
         </div>

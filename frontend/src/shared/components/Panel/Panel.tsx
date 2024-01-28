@@ -1,11 +1,27 @@
 import cn from 'classnames';
 import styles from './Panel.module.scss';
+import React, { useState } from 'react';
 
-export const Panel = () => {
+interface IPanelProps {
+    onInputMessageHandler?: (msg: string) => void;
+}
+
+export const Panel = ({ onInputMessageHandler }: IPanelProps) => {
+    const [message, setMessage] = useState('');
+
+    const onSubmitHandler = (event: React.FormEvent) => {
+        event.preventDefault();
+        onInputMessageHandler?.(message);
+        setMessage('');
+    };
+
     return (
         <div className={styles['panel']}>
-            <div className={styles['panel__container']}>
-                <button className={cn(styles['add-file-button'])}>
+            <form
+                onSubmit={onSubmitHandler}
+                className={styles['panel__container']}
+            >
+                <button type='button' className={cn(styles['add-file-button'])}>
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         viewBox='0 0 24 24'
@@ -21,10 +37,15 @@ export const Panel = () => {
                     </svg>
                 </button>
                 <input
+                    value={message}
+                    onChange={(event) => setMessage(event.target.value)}
                     className={cn(styles['panel__input'], styles['panel-item'])}
                     placeholder='Type a message...'
                 />
-                <button className={cn(styles['send-message-button'])}>
+                <button
+                    type='submit'
+                    className={cn(styles['send-message-button'])}
+                >
                     <svg
                         xmlns='http://www.w3.org/2000/svg'
                         width='24'
@@ -42,7 +63,7 @@ export const Panel = () => {
                         <polygon points='22 2 15 22 11 13 2 9 22 2'></polygon>
                     </svg>
                 </button>
-            </div>
+            </form>
         </div>
     );
 };
