@@ -1,1 +1,1 @@
-# Час с GigaChat
+# Чат с GigaChat
