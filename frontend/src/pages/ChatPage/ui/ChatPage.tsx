@@ -16,7 +16,7 @@ export const ChatPage = () => {
     const [history, setHistory] = useState<IHistory[]>([]);
 
     const getAnswerForGigaChat = async (message: string) => {
-        const response = await fetch('http://127.0.0.1:8000/new-msg', {
+        const response = await fetch('http://localhost:8000/new-msg', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,6 +55,7 @@ export const ChatPage = () => {
                 <div className='chat__conversation-board'>
                     {history.map(({ author, message }, i) => (
                         <Message
+                            key={i}
                             avatar={AVATAR_URL[author]}
                             messages={[message]}
                             reversed={author == 'user'}
