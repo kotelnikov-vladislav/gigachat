@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+    build: server/
+    command: python ./app.py
+    ports:
+      - 8000:8000
+  client:
+    build: client/
+    command: serve public -p 80
+    ports:
+      - 80:80
+    depends_on:
+      - server
