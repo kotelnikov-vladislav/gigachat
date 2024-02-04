@@ -4,16 +4,8 @@
     margin: 1em 0;
 
     &__avatar {
-        height: 35px;
-        width: 35px;
         overflow: hidden;
         border-radius: 50%;
-
-        img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
     }
 
     &__person {

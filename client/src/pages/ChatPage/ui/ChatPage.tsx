@@ -1,11 +1,6 @@
-import { Message, Panel } from '@/shared';
+import { EIcon, Message, Panel } from '@/shared';
 import styles from './ChatPage.module.scss';
 import { useState } from 'react';
-
-const AVATAR_URL = {
-    user: 'https://clck.ru/38M4NZ',
-    gigachat: 'https://clck.ru/38M4G6',
-};
 
 interface IHistory {
     author: 'user' | 'gigachat';
@@ -59,7 +54,9 @@ export const ChatPage = () => {
                     {history.map(({ author, message }, i) => (
                         <Message
                             key={i}
-                            avatar={AVATAR_URL[author]}
+                            avatar={
+                                author === 'user' ? EIcon.User : EIcon.GigaChat
+                            }
                             messages={[message]}
                             reversed={author == 'user'}
                         />

@@ -4,3 +4,4 @@ server/venv
 server/.env
 client/.env
 .idea
+makefile
