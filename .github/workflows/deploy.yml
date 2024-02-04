@@ -17,9 +17,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            rm -rf ./gigachat
-            git clone https://github.com/kotelnikov-vladislav/gigachat.git
             cd ./gigachat
             docker compose down
+            git pull https://github.com/kotelnikov-vladislav/gigachat.git
+            echo "VITE_HOST= ${{ secrets.HOST }}" > ./client/.env
             docker compose build
             docker compose up -d

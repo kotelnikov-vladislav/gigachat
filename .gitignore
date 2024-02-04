@@ -2,4 +2,5 @@ client/node_modules
 client/dist
 server/venv
 server/.env
+client/.env
 .idea
