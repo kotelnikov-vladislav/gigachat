@@ -16,13 +16,16 @@ export const ChatPage = () => {
     const [history, setHistory] = useState<IHistory[]>([]);
 
     const getAnswerForGigaChat = async (message: string) => {
-        const response = await fetch('http://localhost:8000/new-msg', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ msg: message }),
-        });
+        const response = await fetch(
+            `http://${import.meta.env.VITE_HOST || 'localhost'}:8000/new-msg`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ msg: message }),
+            }
+        );
         const { msg } = await response.json();
         setHistory((prevHistory) => {
             return [
