@@ -1,0 +1,29 @@
+.chat-page {
+    height: 100vh;
+    overflow: hidden;
+    padding: 50px 20px;
+
+    @media (max-width: 528px) {
+        padding: 0;
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 10px;
+        background-color: var(--chat-background);
+        border-radius: 26px;
+
+        @media (max-width: 528px) {
+            max-width: 100%;
+            border-radius: 0;
+        }
+    }
+
+    &__conversation-board {
+        flex: 1 1 0;
+    }
+}

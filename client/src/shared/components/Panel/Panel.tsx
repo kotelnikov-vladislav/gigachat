@@ -5,13 +5,20 @@ import { EIcon, Icon } from '../Icon';
 
 interface IPanelProps {
     onInputMessageHandler?: (msg: string) => void;
+    isDisabled?: boolean;
 }
 
-export const Panel = ({ onInputMessageHandler }: IPanelProps) => {
+export const Panel = ({
+    onInputMessageHandler,
+    isDisabled = false,
+}: IPanelProps) => {
     const [message, setMessage] = useState('');
 
     const onSubmitHandler = (event: React.FormEvent) => {
         event.preventDefault();
+
+        if (isDisabled || message.trim().length === 0) return;
+
         onInputMessageHandler?.(message);
         setMessage('');
     };

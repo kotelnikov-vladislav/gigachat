@@ -2,11 +2,7 @@ import './styles/index.scss';
 import { ChatPage } from '@/pages';
 
 const App = () => {
-    return (
-        <main>
-            <ChatPage />
-        </main>
-    );
+    return <ChatPage />;
 };
 
 export default App;

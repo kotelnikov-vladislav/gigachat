@@ -1,6 +1,7 @@
 import { EIcon, Message, Panel } from '@/shared';
 import styles from './ChatPage.module.scss';
 import { useState } from 'react';
+import { HOST } from '@/shared/constants/api';
 
 interface IHistory {
     author: 'user' | 'gigachat';
@@ -9,18 +10,16 @@ interface IHistory {
 
 export const ChatPage = () => {
     const [history, setHistory] = useState<IHistory[]>([]);
+    const [inputMessageDisabled, setInputMessageDisabled] = useState(false);
 
     const getAnswerForGigaChat = async (message: string) => {
-        const response = await fetch(
-            `http://${import.meta.env.VITE_HOST || 'localhost'}:8000/new-msg`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ msg: message }),
-            }
-        );
+        const response = await fetch(`${HOST}:8000/new-msg`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ msg: message }),
+        });
         const { msg } = await response.json();
         setHistory((prevHistory) => {
             return [
@@ -31,6 +30,7 @@ export const ChatPage = () => {
                 },
             ];
         });
+        setInputMessageDisabled(false);
     };
 
     const onInpuntMessage = (msg: string) => {
@@ -44,13 +44,14 @@ export const ChatPage = () => {
             ];
         });
 
+        setInputMessageDisabled(true);
         getAnswerForGigaChat(msg);
     };
 
     return (
         <div className={styles['chat-page']}>
-            <div className='--dark-theme' id='chat'>
-                <div className='chat__conversation-board'>
+            <div className={styles['chat-page__body']}>
+                <div className={styles['chat-page__conversation-board']}>
                     {history.map(({ author, message }, i) => (
                         <Message
                             key={i}
@@ -63,7 +64,10 @@ export const ChatPage = () => {
                     ))}
                 </div>
                 <div className='chat__conversation-panel'>
-                    <Panel onInputMessageHandler={onInpuntMessage} />
+                    <Panel
+                        isDisabled={inputMessageDisabled}
+                        onInputMessageHandler={onInpuntMessage}
+                    />
                 </div>
             </div>
         </div>

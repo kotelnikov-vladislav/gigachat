@@ -1,6 +1,6 @@
 @import './reset';
 
-.--dark-theme {
+:root {
     --chat-background: rgba(10, 14, 14, 0.95);
     --chat-panel-background: #131719;
     --chat-bubble-background: #14181a;
@@ -16,45 +16,6 @@ body {
     background-size: cover;
 }
 
-#chat {
-    background: var(--chat-background);
-    max-width: 600px;
-    margin: 25px auto;
-    box-sizing: border-box;
-    padding: 1em;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-#chat .btn-icon {
-    position: relative;
-    cursor: pointer;
-}
-#chat .btn-icon svg {
-    stroke: #fff;
-    fill: #fff;
-    width: 50%;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#chat .chat__conversation-board {
-    padding: 1em 0 2em;
-    height: calc(100vh - 55px - 2em - 25px * 2 - 0.5em - 3em);
-    overflow: auto;
-}
-
-@media only screen and (max-width: 600px) {
-    #chat {
-        margin: 0;
-        border-radius: 0;
-    }
-    #chat .chat__conversation-board {
-        height: calc(100vh - 55px - 2em - 0.5em - 3em);
-    }
-    #chat .chat__conversation-board__message__options {
-        display: none !important;
-    }
+#root {
+    height: 100%;
 }
