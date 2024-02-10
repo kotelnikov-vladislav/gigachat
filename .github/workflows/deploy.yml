@@ -21,6 +21,8 @@ jobs:
             docker compose down
             git pull https://github.com/kotelnikov-vladislav/gigachat.git
             echo "VITE_HOST= ${{ secrets.HOST }}" > ./client/.env
-            echo "CREDENTIALS= ${{ secrets.CREDENTIALS }}" > ./server/.env
+            echo "GIGACHAT_API_KEY= ${{ secrets.GIGACHAT_API_KEY }}" >> ./server/.env
+            echo "YACHAT_GPT_API_KEY= ${{ secrets.YACHAT_GPT_API_KEY }}" >> ./server/.env
+            echo "YACHAT_GPT_MODEL_URL= ${{ secrets.YACHAT_GPT_MODEL_URL }}" >> ./server/.env
             docker compose build
             docker compose up -d

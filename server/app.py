@@ -1,29 +1,35 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from langchain.schema import HumanMessage, SystemMessage
-from langchain.chat_models.gigachat import GigaChat
 from dotenv import dotenv_values
+from chat import Chat
 
 config = dotenv_values('.env')
 
 app = Flask(__name__)
 CORS(app)
 
-chat = GigaChat(credentials=config.get('CREDENTIALS'), verify_ssl_certs=False)
+chat = Chat(
+    config.get('GIGACHAT_API_KEY'),
+    config.get('YACHAT_GPT_API_KEY'),
+    config.get('YACHAT_GPT_MODEL_URL')
+)
 
-messages = [
-    SystemMessage(
-        content='Ты Бертрам Гилфойл из сериала силиконовая долина'
-    )
-]
+"""
+Запрос к роуту должен выглядеть так:
+{
+    model: 'gigaChat' | 'yaChat',
+    content: string
+}
+"""
 
 
 @app.route('/new-msg', methods=['POST'])
 def new_msg():
-    msg = request.json['msg']
-    messages.append(HumanMessage(content=msg))
-    res = chat(messages)
-    messages.append(res)
+    content = request.json['content']
+    model = request.json['model']
+    
+    res = chat.getAnswer(model, content)
+    
     
     return jsonify({
         'msg': res.content
