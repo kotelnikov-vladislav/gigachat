@@ -13,13 +13,25 @@
         height: 100%;
         max-width: 600px;
         margin: 0 auto;
-        padding: 10px;
         background-color: var(--chat-background);
-        border-radius: 26px;
 
         @media (max-width: 528px) {
             max-width: 100%;
             border-radius: 0;
+        }
+    }
+
+    &__setting-btn {
+        display: grid;
+        place-items: center;
+        width: 64px;
+        height: 64px;
+        background-color: rgba(38, 38, 38, 1);
+
+        button {
+            background: transparent;
+            box-shadow: none;
+            border: none;
         }
     }
 

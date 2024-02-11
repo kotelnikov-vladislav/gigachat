@@ -1,7 +1,18 @@
-import { EIcon, Message, Panel } from '@/shared';
+import {
+    EIcon,
+    Message,
+    Panel,
+    Card,
+    Modal,
+    Icon,
+    IconButton,
+    TextField,
+    Button,
+} from '@/shared';
 import styles from './ChatPage.module.scss';
 import { useState } from 'react';
 import { HOST } from '@/shared/constants/api';
+import { Settings } from '@/entities';
 
 interface IHistory {
     author: 'user' | 'gigachat';
@@ -50,7 +61,10 @@ export const ChatPage = () => {
 
     return (
         <div className={styles['chat-page']}>
-            <div className={styles['chat-page__body']}>
+            <Card className={styles['chat-page__body']}>
+                <div className={styles['chat-page__head']}>
+                    <Settings />
+                </div>
                 <div className={styles['chat-page__conversation-board']}>
                     {history.map(({ author, message }, i) => (
                         <Message
@@ -69,7 +83,7 @@ export const ChatPage = () => {
                         onInputMessageHandler={onInpuntMessage}
                     />
                 </div>
-            </div>
+            </Card>
         </div>
     );
 };

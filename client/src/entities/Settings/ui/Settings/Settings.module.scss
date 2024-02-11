@@ -1,0 +1,30 @@
+.modal {
+    width: 520px;
+
+    &__settings {
+        gap: 16px;
+        display: flex;
+    }
+
+    &__control {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 24px;
+    }
+
+    &__select-model {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__input-promt {
+        flex: 1 1 0;
+
+        h2 {
+            color: #fff;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+    }
+}

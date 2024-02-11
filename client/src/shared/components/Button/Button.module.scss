@@ -1,0 +1,18 @@
+.button {
+    padding: 8px 16px;
+    background-color: rgba(129 71 252 / 1);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+        background-color: rgb(117, 53, 255);
+    }
+}
+
+.button:disabled {
+    background-color: rgba(98 98 98 / 1);
+    cursor: default;
+}

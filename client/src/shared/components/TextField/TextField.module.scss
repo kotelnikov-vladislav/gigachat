@@ -1,0 +1,14 @@
+.text-field {
+    width: 100%;
+    resize: vertical;
+    min-height: 55px;
+    max-height: 128px;
+    border-radius: 16px;
+    background-color: rgba(19 23 25 / 1);
+    color: #fff;
+    padding: 18px;
+}
+
+.text-field--full-height {
+    height: 100%;
+}

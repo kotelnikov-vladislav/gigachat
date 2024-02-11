@@ -1,5 +1,5 @@
-import GigaChat from './gigachat.jpg';
-import User from './user.png';
+import UserIcon from './user.png';
+import GigaChatIcon from './gigachat.png';
+import YandexGPTIcon from './yandexgpt.png';
 
-export const GigaChatIcon = GigaChat;
-export const UserIcon = User;
+export { GigaChatIcon, UserIcon, YandexGPTIcon };

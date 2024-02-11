@@ -83,6 +83,7 @@ summary,
 time,
 mark,
 audio,
+textarea,
 video {
     margin: 0;
     padding: 0;
@@ -103,7 +104,7 @@ header,
 hgroup,
 menu,
 nav,
-section {
+textarea section {
     display: block;
 }
 body {
