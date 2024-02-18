@@ -1,50 +1,23 @@
-import {
-    EIcon,
-    Message,
-    Panel,
-    Card,
-    Modal,
-    Icon,
-    IconButton,
-    TextField,
-    Button,
-} from '@/shared';
+import { EIcon, Panel, Card } from '@/shared';
 import styles from './ChatPage.module.scss';
 import { useState } from 'react';
-import { HOST } from '@/shared/constants/api';
-import { Settings } from '@/entities';
+import { Settings, TModel } from '@/entities/Settings';
+import { Message, useSendMessageMutation } from '@/entities/Message';
+import { useAppSelector } from '@/app';
 
 interface IHistory {
-    author: 'user' | 'gigachat';
+    author: 'user' | TModel;
     message: string;
 }
 
 export const ChatPage = () => {
     const [history, setHistory] = useState<IHistory[]>([]);
     const [inputMessageDisabled, setInputMessageDisabled] = useState(false);
+    const { model } = useAppSelector((state) => state.settings);
 
-    const getAnswerForGigaChat = async (message: string) => {
-        const response = await fetch(`${HOST}:8000/new-msg`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ msg: message }),
-        });
-        const { msg } = await response.json();
-        setHistory((prevHistory) => {
-            return [
-                ...prevHistory,
-                {
-                    author: 'gigachat',
-                    message: msg,
-                },
-            ];
-        });
-        setInputMessageDisabled(false);
-    };
+    const [fetchSendMsg] = useSendMessageMutation({});
 
-    const onInpuntMessage = (msg: string) => {
+    const onInpuntMessage = async (msg: string) => {
         setHistory((prevHistory) => {
             return [
                 ...prevHistory,
@@ -56,7 +29,23 @@ export const ChatPage = () => {
         });
 
         setInputMessageDisabled(true);
-        getAnswerForGigaChat(msg);
+
+        const { content } = await fetchSendMsg({
+            content: msg,
+            model,
+        }).unwrap();
+
+        setHistory((prevHistory) => {
+            return [
+                ...prevHistory,
+                {
+                    author: model,
+                    message: content,
+                },
+            ];
+        });
+
+        setInputMessageDisabled(false);
     };
 
     return (
@@ -69,9 +58,7 @@ export const ChatPage = () => {
                     {history.map(({ author, message }, i) => (
                         <Message
                             key={i}
-                            avatar={
-                                author === 'user' ? EIcon.User : EIcon.GigaChat
-                            }
+                            type={author}
                             messages={[message]}
                             reversed={author == 'user'}
                         />

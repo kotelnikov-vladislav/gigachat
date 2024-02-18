@@ -1,8 +1,13 @@
+import { StoreProvider } from './providers/StoreProvider';
 import './styles/index.scss';
 import { ChatPage } from '@/pages';
 
 const App = () => {
-    return <ChatPage />;
+    return (
+        <StoreProvider>
+            <ChatPage />
+        </StoreProvider>
+    );
 };
 
 export default App;

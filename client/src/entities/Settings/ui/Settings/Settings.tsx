@@ -1,21 +1,46 @@
 import { useEffect, useState } from 'react';
 import { IconButton, EIcon, Modal, TextField, Button } from '@/shared';
 import styles from './Settings.module.scss';
+import { TModel } from '../../model/types';
+import {
+    SettingsActions,
+    useGetParamsQuery,
+    useSetPromptMutation,
+} from '../..';
+import { useAppDispatch, useAppSelector } from '@/app';
 
-type TModel = 'gigachat' | 'yandexgpt';
-
-const INIT_MODEL: TModel = 'gigachat';
-const INIT_PROMT: string = '';
+const INIT_MODEL: TModel = 'gigaChat';
 
 export const Settings = () => {
-    const [promt, setPromt] = useState('');
+    const [newPrompt, setNewPrompt] = useState('');
     const [isChange, setIsChange] = useState(false);
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [selectModel, setSelectModel] = useState<TModel>(INIT_MODEL);
+
+    const dispatch = useAppDispatch();
+    const { model } = useAppSelector((state) => state.settings);
+
+    const { data: { prompt } = { prompt: '' } } = useGetParamsQuery({});
+    const [fetchNewPrompt] = useSetPromptMutation();
+
+    const onSubmitHandler = async () => {
+        const { status } = await fetchNewPrompt({ prompt: newPrompt }).unwrap();
+
+        if (status) {
+            setIsChange(false);
+            setIsOpenModal(false);
+        }
+    };
+
+    const onSelectModel = (model: TModel) =>
+        dispatch(SettingsActions.setModel(model));
 
     useEffect(() => {
-        setIsChange(promt !== INIT_PROMT || selectModel !== INIT_MODEL);
-    }, [promt, selectModel]);
+        setIsChange(model !== INIT_MODEL || prompt !== newPrompt);
+    }, [model, newPrompt]);
+
+    useEffect(() => {
+        setNewPrompt(prompt);
+    }, [prompt]);
 
     return (
         <div>
@@ -34,15 +59,15 @@ export const Settings = () => {
                                     size={80}
                                     src={EIcon.GigaChat}
                                     theme='light'
-                                    isActive={selectModel === 'gigachat'}
-                                    onClick={() => setSelectModel('gigachat')}
+                                    isActive={model === 'gigaChat'}
+                                    onClick={() => onSelectModel('gigaChat')}
                                 />
                                 <IconButton
                                     size={80}
                                     src={EIcon.YandexGPT}
                                     theme='light'
-                                    isActive={selectModel === 'yandexgpt'}
-                                    onClick={() => setSelectModel('yandexgpt')}
+                                    isActive={model === 'yaChat'}
+                                    onClick={() => onSelectModel('yaChat')}
                                 />
                             </div>
                             <label className={styles['modal__input-promt']}>
@@ -50,15 +75,21 @@ export const Settings = () => {
                                 <TextField
                                     isfullHeight
                                     onChange={(event) =>
-                                        setPromt(event.currentTarget.value)
+                                        setNewPrompt(
+                                            event.currentTarget.value || ''
+                                        )
                                     }
-                                >
-                                    {promt}
-                                </TextField>
+                                    value={newPrompt}
+                                />
                             </label>
                         </div>
                         <div className={styles['modal__control']}>
-                            <Button isDisabled={!isChange}>Сохранить</Button>
+                            <Button
+                                isDisabled={!isChange}
+                                onClick={onSubmitHandler}
+                            >
+                                Сохранить
+                            </Button>
                         </div>
                     </div>
                 </Modal>

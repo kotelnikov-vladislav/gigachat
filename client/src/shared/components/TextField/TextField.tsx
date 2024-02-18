@@ -4,6 +4,7 @@ import styles from './TextField.module.scss';
 
 interface ITextFieldProps extends React.HTMLAttributes<HTMLTextAreaElement> {
     isfullHeight?: boolean;
+    value?: string;
 }
 
 export const TextField = ({
@@ -18,8 +19,6 @@ export const TextField = ({
                 [styles['text-field--full-height']]: isfullHeight,
             })}
             {...props}
-        >
-            {children}
-        </textarea>
+        />
     );
 };

@@ -1,18 +1,26 @@
 import cn from 'classnames';
 import styles from './Message.module.scss';
-import { EIcon, Icon } from '../Icon';
+import { EIcon, Icon } from '@/shared';
+import { TModel } from '@/entities/Settings';
 
 interface IMessageProps {
-    avatar: EIcon;
+    type: 'user' | TModel;
     messages: string[];
     reversed?: boolean;
 }
 
 export const Message = ({
-    avatar,
+    type,
     messages,
     reversed = false,
 }: IMessageProps) => {
+    const avatar =
+        type === 'user'
+            ? EIcon.User
+            : type === 'gigaChat'
+              ? EIcon.GigaChat
+              : EIcon.YandexGPT;
+
     return (
         <div
             className={cn(styles['message'], {
