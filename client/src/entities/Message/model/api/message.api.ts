@@ -7,7 +7,7 @@ export const messageApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: `${HOST}:8000`,
     }),
-    endpoints: ({ query, mutation }) => ({
+    endpoints: ({ mutation }) => ({
         sendMessage: mutation<ISendNewMessageResponse, ISendNewMessageRequest>({
             query: (msg) => ({
                 url: '/new-msg',

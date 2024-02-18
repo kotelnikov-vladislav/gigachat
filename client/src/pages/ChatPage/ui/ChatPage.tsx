@@ -1,4 +1,4 @@
-import { EIcon, Panel, Card } from '@/shared';
+import { Panel, Card } from '@/shared';
 import styles from './ChatPage.module.scss';
 import { useState } from 'react';
 import { Settings, TModel } from '@/entities/Settings';
