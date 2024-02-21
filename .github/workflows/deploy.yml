@@ -24,5 +24,6 @@ jobs:
             echo "GIGACHAT_API_KEY= ${{ secrets.GIGACHAT_API_KEY }}" >> ./server/.env
             echo "YACHAT_GPT_API_KEY= ${{ secrets.YACHAT_GPT_API_KEY }}" >> ./server/.env
             echo "YACHAT_GPT_MODEL_URL= ${{ secrets.YACHAT_GPT_MODEL_URL }}" >> ./server/.env
+            echo "SESSION_SECRET_KEY= ${{ secrets.SESSION_SECRET_KEY }}" >> ./server/.env
             docker compose build
             docker compose up -d
