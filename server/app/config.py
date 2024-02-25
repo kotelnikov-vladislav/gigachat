@@ -2,7 +2,7 @@ from dotenv import dotenv_values
 
 config = dotenv_values('.env')
 
-DEFAULT_PROMPT = 'Отвечай так, как будто бы ты личный виртуальный помощник'
+SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg2://{config.get('POSTGRES_USER')}:{config.get('POSTGRES_PASSWORD')}@localhost:5432/postgres"
 
 SESSION_ID = 'sessionId'
 SESSION_SECRET_KEY = config.get('SESSION_SECRET_KEY')

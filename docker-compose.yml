@@ -1,10 +1,24 @@
 version: '3'
 services:
+  db:
+    image: postgres:16.2-alpine3.19
+    env_file:
+      - .env_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./db/data:/var/lib/postgresql/data"
+    restart: always
   server:
     build: server/
-    command: python ./app.py
+    env_file:
+      - .env_db
+    command: python ./app/app.py
     ports:
       - 8000:8000
+    depends_on:
+      - db
+    restart: always
   client:
     build: client/
     command: serve public -p 80
@@ -12,3 +26,4 @@ services:
       - 80:80
     depends_on:
       - server
+    restart: always
