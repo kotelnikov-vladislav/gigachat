@@ -9,16 +9,18 @@ services:
     volumes:
       - "./db/data:/var/lib/postgresql/data"
     restart: always
+    networks:
+      backend:
   server:
     build: server/
-    env_file:
-      - .env_db
     command: python ./app/app.py
     ports:
       - 8000:8000
+    restart: always
+    networks:
+      - backend
     depends_on:
       - db
-    restart: always
   client:
     build: client/
     command: serve public -p 80
@@ -27,3 +29,6 @@ services:
     depends_on:
       - server
     restart: always
+
+networks:
+  backend:
