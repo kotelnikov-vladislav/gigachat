@@ -14,6 +14,8 @@ chat = Chat(
 
 @main_bp.route('/new-msg', methods=['POST'])
 def new_msg():
+    print(session)
+
     if check_session_id():
         return check_session_id()
 

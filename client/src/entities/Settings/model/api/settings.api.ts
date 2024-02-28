@@ -11,6 +11,7 @@ export const settingsApi = createApi({
     reducerPath: 'settingsAPI',
     baseQuery: fetchBaseQuery({
         baseUrl: `${HOST}:8000`,
+        credentials: 'include',
     }),
     endpoints: ({ query, mutation }) => ({
         setPrompt: mutation<ISetPromptResponse, ISetPromptRequest>({
@@ -29,4 +30,8 @@ export const settingsApi = createApi({
     }),
 });
 
-export const { useSetPromptMutation, useGetParamsQuery } = settingsApi;
+export const {
+    useSetPromptMutation,
+    useGetParamsQuery,
+    endpoints: settingsEndpoint,
+} = settingsApi;

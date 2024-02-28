@@ -1,9 +1,9 @@
-import { Panel, Card } from '@/shared';
+import { useState, useEffect } from 'react';
 import styles from './ChatPage.module.scss';
-import { useState } from 'react';
+import { Panel, Card, useAppSelector } from '@/shared';
 import { Settings, TModel } from '@/entities/Settings';
 import { Message, useSendMessageMutation } from '@/entities/Message';
-import { useAppSelector } from '@/app';
+import { useGetPingQuery } from '@/entities/Auth';
 
 interface IHistory {
     author: 'user' | TModel;
@@ -15,7 +15,10 @@ export const ChatPage = () => {
     const [inputMessageDisabled, setInputMessageDisabled] = useState(false);
     const { model } = useAppSelector((state) => state.settings);
 
+    const { data: session, isLoading, isError } = useGetPingQuery(null); // Получение токена сессии (нужно для всех остальных запросов)
     const [fetchSendMsg] = useSendMessageMutation({});
+
+    useEffect(() => {}, [session]);
 
     const onInpuntMessage = async (msg: string) => {
         setHistory((prevHistory) => {
@@ -47,6 +50,10 @@ export const ChatPage = () => {
 
         setInputMessageDisabled(false);
     };
+
+    if (isLoading || isError) {
+        return null;
+    }
 
     return (
         <div className={styles['chat-page']}>

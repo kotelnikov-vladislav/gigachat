@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { SettingsReducer, settingsApi } from '@/entities/Settings';
 import { messageApi } from '@/entities/Message';
+import { authApi } from '@/entities/Auth';
 
 export const rootReducer = combineReducers({
     settings: SettingsReducer,
 
     [settingsApi.reducerPath]: settingsApi.reducer,
     [messageApi.reducerPath]: messageApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
 });
 
 export const store = configureStore({
@@ -15,6 +17,7 @@ export const store = configureStore({
         getDefaultMiddleware().concat([
             settingsApi.middleware,
             messageApi.middleware,
+            authApi.middleware,
         ]),
 });
 

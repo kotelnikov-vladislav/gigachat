@@ -6,6 +6,7 @@ export const messageApi = createApi({
     reducerPath: 'message',
     baseQuery: fetchBaseQuery({
         baseUrl: `${HOST}:8000`,
+        credentials: 'include',
     }),
     endpoints: ({ mutation }) => ({
         sendMessage: mutation<ISendNewMessageResponse, ISendNewMessageRequest>({

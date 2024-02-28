@@ -9,7 +9,7 @@ def create_app():
     app.register_blueprint(main_bp)
     app.secret_key = SESSION_SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     with app.app_context():
         db.init_app(app)

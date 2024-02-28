@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import type { TRootState, TAppDispatch } from '../../providers/StoreProvider';
+import type { TRootState, TAppDispatch } from '@/app/providers/StoreProvider';
 
 // Используйте во всем приложении вместо обычных `useDispatch` и `useSelector`
 export const useAppDispatch: () => TAppDispatch = useDispatch;
