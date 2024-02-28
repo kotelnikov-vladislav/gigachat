@@ -10,7 +10,7 @@
 ![Flask](https://img.shields.io/badge/Flask-blue)
 ![Docker](https://img.shields.io/badge/Docker-blue)
 
-## Установка
+## Установка (пока не актуально)
 
 Для запуска проекта вам понадобится Docker. Выполните следующие шаги:
 
