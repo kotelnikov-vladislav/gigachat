@@ -20,7 +20,15 @@ jobs:
             cd ./gigachat
             docker compose down
             git pull https://github.com/kotelnikov-vladislav/gigachat.git
+
             echo "VITE_HOST= ${{ secrets.HOST }}" > ./client/.env
+
+            echo "POSTGRES_USER= ${{ secrets.POSTGRES_USER }}" >> .env_db
+            echo "POSTGRES_PASSWORD= ${{ secrets.POSTGRES_PASSWORD }}" >> .env_db
+
+            echo "DEPLOY= true" >> ./server/.env
+            echo "POSTGRES_USER= ${{ secrets.POSTGRES_USER }}" >> ./server/.env
+            echo "POSTGRES_PASSWORD= ${{ secrets.POSTGRES_PASSWORD }}" >> ./server/.env
             echo "GIGACHAT_API_KEY= ${{ secrets.GIGACHAT_API_KEY }}" >> ./server/.env
             echo "YACHAT_GPT_API_KEY= ${{ secrets.YACHAT_GPT_API_KEY }}" >> ./server/.env
             echo "YACHAT_GPT_MODEL_URL= ${{ secrets.YACHAT_GPT_MODEL_URL }}" >> ./server/.env
