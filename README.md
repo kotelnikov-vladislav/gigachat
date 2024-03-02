@@ -1,14 +1,20 @@
-# ИИ Чат
-
-Привет! Этот проект представляет собой простой чат с искусственным интеллектом (GigaChat) на основе технологий React, TypeScript, Python, Flask и Docker.
-
-## Технологии
-
 ![React](https://img.shields.io/badge/React-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-blue)
 ![Python](https://img.shields.io/badge/Python-blue)
 ![Flask](https://img.shields.io/badge/Flask-blue)
 ![Docker](https://img.shields.io/badge/Docker-blue)
+
+<div align='center'>
+	<img src='https://i.ibb.co/ThxHv0c/aichat.png' />
+	<p></p>
+	<h1 align='center'>AI Chat</h1>
+	<p align='center'>
+		🤖 Добро пожаловать в AI Chat - веб-сайт для общения с искусственным интеллектом!
+	<p>
+	<p>
+		🚀 Здесь вы можете поговорить с моделями YandexGPT и GigaChat на разные темы, чтобы узнать что-то новое или просто пообщаться.
+	</p>
+</div>
 
 ## Установка (временно не актуально)
 
