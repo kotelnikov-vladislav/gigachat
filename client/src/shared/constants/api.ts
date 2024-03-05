@@ -1,1 +1,1 @@
-export const HOST = `http://${import.meta.env.VITE_HOST || 'localhost'}`;
+export const HOST = `${import.meta.env.VITE_HOST}`;

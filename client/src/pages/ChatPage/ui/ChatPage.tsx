@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './ChatPage.module.scss';
 import { Panel, Card, useAppSelector } from '@/shared';
 import { Settings, TModel } from '@/entities/Settings';
 import { Message, useSendMessageMutation } from '@/entities/Message';
 import { useGetPingQuery } from '@/entities/Auth';
+import { HOST } from '@/shared/constants/api';
 
 interface IHistory {
     author: 'user' | TModel;
@@ -15,10 +16,10 @@ export const ChatPage = () => {
     const [inputMessageDisabled, setInputMessageDisabled] = useState(false);
     const { model } = useAppSelector((state) => state.settings);
 
-    const { data: session, isLoading, isError } = useGetPingQuery(null); // Получение токена сессии (нужно для всех остальных запросов)
+    const { isLoading, isError } = useGetPingQuery(null); // Получение токена сессии (нужно для всех остальных запросов)
     const [fetchSendMsg] = useSendMessageMutation({});
 
-    useEffect(() => {}, [session]);
+    console.log(HOST);
 
     const onInpuntMessage = async (msg: string) => {
         setHistory((prevHistory) => {

@@ -2,33 +2,34 @@ version: '3'
 services:
   db:
     image: postgres:16.2-alpine3.19
-    env_file:
-      - .env_db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - "./db/data:/var/lib/postgresql/data"
     restart: always
-    networks:
-      backend:
   server:
     build: server/
+    environment:
+      - GIGACHAT_API_KEY=${GIGACHAT_API_KEY}
+      - YACHAT_GPT_API_KEY=${YACHAT_GPT_API_KEY}
+      - YACHAT_GPT_MODEL_URL=${YACHAT_GPT_MODEL_URL}
+      - SESSION_SECRET_KEY=${SESSION_SECRET_KEY}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     command: python ./app/app.py
     ports:
       - 8000:8000
     restart: always
-    networks:
-      - backend
     depends_on:
       - db
   client:
     build: client/
-    command: serve public -p 80
+    command: sh -c "echo 'VITE_HOST= ${HOST}' > .env && npm run build && mv dist/assets public/assets && mv dist/index.html public/index.html && serve public -p 80"
     ports:
       - 80:80
     depends_on:
       - server
     restart: always
-
-networks:
-  backend:
