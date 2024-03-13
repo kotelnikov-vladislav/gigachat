@@ -1,5 +1,6 @@
 client/node_modules
 client/dist
+client/public
 server/venv
 server/.env
 client/.env

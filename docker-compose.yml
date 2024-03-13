@@ -27,7 +27,7 @@ services:
       - db
   client:
     build: client/
-    command: sh -c "echo 'VITE_HOST= ${HOST}' > .env && npm run build && mv dist/assets public/assets && mv dist/index.html public/index.html && serve public -p 80"
+    command: sh -c "echo 'VITE_HOST= ${HOST}' > .env && npm run build && serve public -p 80"
     ports:
       - 80:80
     depends_on:

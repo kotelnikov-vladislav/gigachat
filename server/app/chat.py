@@ -54,6 +54,9 @@ class Chat:
 
         historyMessagesForBot.append(HumanMessage(content=content))
 
+        if len(historyMessagesForBot) == 0:
+            historyMessagesForBot = SystemMessage(content='Отвечай так, как будто ты личный ассистент')
+
         bot_answer = self.models[model](historyMessagesForBot)
 
         user_message = Message(session_id, content, 'human')
