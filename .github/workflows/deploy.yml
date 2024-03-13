@@ -19,7 +19,7 @@ jobs:
           script: |
             cd ./gigachat
             docker compose down
-            git pull
+            git fetch
 
             echo "HOST= ${{ secrets.HOST }}" > .env
 
