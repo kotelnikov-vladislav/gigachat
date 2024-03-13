@@ -6,4 +6,4 @@ client/.env
 .idea
 makefile
 db
-.env_db
+.env

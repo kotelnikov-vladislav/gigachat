@@ -4,7 +4,6 @@ from models import Message
 
 
 # -------- Работа с сессией --------
-
 def check_session_id():
     if SESSION_ID not in session:
         return jsonify({'status': False, 'error': 'Требуется авторизация'})

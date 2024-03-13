@@ -28,7 +28,7 @@ class Chat:
                 .filter_by(session_id=str(session_id))
                 .filter_by(author='system').all()
         )
-        prompt = historyMessages[0].get('content') if len(historyMessages) > 0 else ''
+        prompt = historyMessages[0].get('content') if len(historyMessages) > 0 else 'Отвечай так, как будто ты личный ассистент'
 
         return {
             'prompt': prompt
@@ -45,7 +45,8 @@ class Chat:
 
         for message in historyMessages:
             if message.get('author') == 'system':
-                historyMessagesForBot.append(SystemMessage(content=message.get('content')))
+                content= message.get('content') if len(message.get('content')) > 0 else 'Отвечай так, как будто ты личный ассистент'
+                historyMessagesForBot.append(SystemMessage(content=content))
             elif message.get('author') == 'ai':
                 historyMessagesForBot.append(AIMessage(content=message.get('content')))
             else:
