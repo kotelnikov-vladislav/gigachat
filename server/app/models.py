@@ -15,4 +15,8 @@ class Message(db.Model):
     def __init__(self, session_id, content, author):
         self.session_id = session_id
         self.author = author
-        self.content = content
+
+        if author == 'system' and content.strip() == '':
+            self.content = 'Отвечай так, как будто ты личный ассистент'
+        else:
+            self.content = content

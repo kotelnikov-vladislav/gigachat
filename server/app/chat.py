@@ -14,10 +14,6 @@ class Chat:
 
     def setPrompt(self, session_id, prompt: str):
         historyMessages = Message.query.filter_by(session_id=str(session_id)).all()
-
-        if prompt.strip() == '':
-            prompt = 'Отвечай так, как будто ты личный ассистент'
-
         systemMessage = Message(session_id, prompt, 'system')
 
         for message in historyMessages:
@@ -33,7 +29,7 @@ class Chat:
                 .filter_by(author='system').all()
         )
         if len(historyMessages) > 0:
-            prompt = historyMessages[0].get('content') if historyMessages[0].get('content') == '' else 'Отвечай так, как будто ты личный ассистент'
+            prompt = historyMessages[0].get('content')
         else:
             prompt = 'Отвечай так, как будто ты личный ассистент'
 
@@ -52,8 +48,7 @@ class Chat:
 
         for message in historyMessages:
             if message.get('author') is 'system':
-                content= message.get('content') if message.get('content') == '' else 'Отвечай так, как будто ты личный ассистент'
-                historyMessagesForBot.append(SystemMessage(content=content))
+                historyMessagesForBot.append(SystemMessage(content=message.get('content')))
             elif message.get('author') is 'ai':
                 historyMessagesForBot.append(AIMessage(content=message.get('content')))
             else:
