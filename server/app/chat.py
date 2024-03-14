@@ -14,6 +14,10 @@ class Chat:
 
     def setPrompt(self, session_id, prompt: str):
         historyMessages = Message.query.filter_by(session_id=str(session_id)).all()
+
+        if prompt.strip() == '':
+            prompt = 'Отвечай так, как будто ты личный ассистент'
+
         systemMessage = Message(session_id, prompt, 'system')
 
         for message in historyMessages:
